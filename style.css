@@ -1,0 +1,156 @@
+@font-face {
+    font-family: "Karla";
+    src: url('/fonts/Karla-VariableFont_wght.ttf') format('truetype'),
+        url('/fonts/Karla-Italic-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+}  
+
+:root {
+    --main-color: #FF9B3F;
+    --main-font: 'Karla', sans-serif;
+    --main-font-size: 24px;
+    --color-black: #333;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: var(--main-font);
+    font-size: var(--main-font-size);
+    text-decoration: none;
+    color: var(--color-black);
+    padding: 0;
+    margin: 0;
+    position: relative;
+}
+
+body {
+    background-color: var(--main-color);
+    margin: 0 auto;
+    padding: 25px 0;
+    height: min(100vh, 800px);
+    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
+}
+
+h1 {
+    color: #fff;
+    font-size: 2rem;
+}
+
+
+.layout-column, .layout-row, .little-layout-row, .little-layout-column  {
+    display: flex;
+}
+
+.layout-column, .layout-row {
+    width: min(460px, 100%);
+    gap: 20px;
+}
+
+.layout-column, .little-layout-column  {
+    flex-direction: column;
+}
+
+.layout-row, .little-layout-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+.little-layout-row {
+    width: 100%;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+.container, .btn-long, .btn-short {
+    background-color: #fff;
+    min-height: 70px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.container, .btn-long {
+    display: flex;
+    padding: 15px 20px;
+}
+
+.container {
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 5px 0 0 var(--color-black);
+}
+
+.container > * {
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.btn-long, .btn-short {
+    box-shadow: 0 10px 0 0 var(--color-black);
+    transition: all 50ms ease-in-out;
+}
+.btn-long:hover, .btn-short:hover {
+    background-color: #FFEBD8;
+}
+.btn-long:active, .btn-short:active, .disable {
+    background-color: #FFEBD8;
+    transform: translateY(5px);
+    box-shadow: 0 5px 0 0 var(--color-black);
+}
+
+.btn-long svg, .btn-short svg {
+    height: 30px;
+    width: 100%;
+    fill: var(--color-black);
+}
+
+
+.btn-long {
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    gap: 15px;
+}
+
+.btn-long span {
+    display: grid;
+    place-items: center;
+    width: 50px;
+}
+
+.btn-short {
+    width: 70px;
+    display: grid;
+    place-items: center;
+}
+
+.ball {
+    width: 30px;
+    height: 30px;
+}
+
+.balls {
+    align-items: center;
+    gap: 5px;
+}
+
+.balls span {
+    width: 20px;
+    height: 5px;
+    color: transparent;
+    background-color: transparent;
+    border-radius: 100vh;
+}
+
+.green {
+    color: #0f0 !important;
+    background-color: #0f0 !important;
+}
+
+.orange {
+    color: var(--main-color) !important;
+    background-color: var(--main-color) !important;
+}
