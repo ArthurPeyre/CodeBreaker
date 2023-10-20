@@ -1,5 +1,17 @@
+<?php
+include('../scripts/random.php');
+
+$random = randomCombination();
+$randomJSON = json_encode($random);
+?>
+
 <script>
-    var tabResult = <?= $codeJSON ?>;
+    var leScore = 0;
+    var score = document.getElementById('score');
+    var leNumCode = 1;
+    var numCode = document.getElementById('numCode');
+
+    var tabResult = <?= $randomJSON ?>;
     tabResult = tabResult.split(",");
         
     console.log(tabResult);
@@ -82,9 +94,26 @@
                 }
             }
 
+            for (i=0; i<tabResult.length; i++) {
+                var isIn = false;
+                for (j=0; j<tabResult.length; j++) {
+                    if (tabResult[j] === tabColor[rounds - 1][i]) {
+                        isIn = true;
+                    }
+                }
+                if (!(isIn)) {
+                    var btn = document.querySelectorAll("#" + tabColor[rounds - 1][i]);
+                    btn[0].classList.add("disable");
+                }
+            }
+
             if (JSON.stringify(tabResult) === JSON.stringify(tabColor[rounds - 1])) {
                 // Le joueur a gagné
                 alert("Bravo, vous avez trouvé la combinaison secrète !");
+
+                leScore = (5 - rounds)*150;
+                score.innerHTML = leScore + " Score";
+                
             } else if (rounds === 4) {
                 // Le joueur a épuisé ses tentatives, il a perdu
                 alert("Vous avez épuisé vos tentatives. La combinaison secrète était : " + tabResult.join(' '));

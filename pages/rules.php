@@ -13,7 +13,7 @@
 include_once('../composants/header.php');
 ?>
 
-    <div class="layout-column" style="flex-grow: 1;gap: min(2.5vh,20px);">
+    <div class="layout-column" style="flex-grow: 1;gap: min(2.5vh,10px);">
         <div class="container">
             <p>Vous avez 6 essais pour découvrir le code</p>
         </div>
