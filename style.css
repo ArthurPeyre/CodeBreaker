@@ -1,8 +1,7 @@
 @font-face {
     font-family: "Karla";
-    src: url('/fonts/Karla-VariableFont_wght.ttf') format('truetype'),
-        url('/fonts/Karla-Italic-VariableFont_wght.ttf') format('truetype');
-    font-weight: 100 900;
+    src: url('./uploads/fonts/Karla-VariableFont_wght.ttf') format('truetype'),
+        url('./uploads/fonts/Karla-Italic-VariableFont_wght.ttf') format('truetype');
 }  
 
 :root {
@@ -25,8 +24,8 @@
 
 body {
     background-color: var(--main-color);
-    margin: 0 auto;
-    padding: 25px 0;
+    margin: auto;
+    padding: 25px 15px;
     height: min(100vh, 800px);
     overflow: hidden;
     align-items: center;
@@ -44,7 +43,7 @@ h1 {
 }
 
 .layout-column, .layout-row {
-    width: min(460px, 100%);
+    width: min(415px, 100%);
     gap: 20px;
 }
 
@@ -138,19 +137,26 @@ h1 {
 }
 
 .balls span {
+    display: block;
     width: 20px;
     height: 5px;
     color: transparent;
     background-color: transparent;
     border-radius: 100vh;
+    margin: 0 auto;
 }
 
 .green {
-    color: #0f0 !important;
     background-color: #0f0 !important;
 }
 
 .orange {
-    color: var(--main-color) !important;
     background-color: var(--main-color) !important;
+}
+
+
+@media (max-width: 800px) {
+    :root {
+        --main-font-size: 20px;
+    }
 }
