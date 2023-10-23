@@ -1,5 +1,5 @@
 <?php
-include('../scripts/random.php');
+include('../scripts/functions.php');
 
 $random = randomCombination();
 $randomJSON = json_encode($random);
@@ -111,15 +111,22 @@ $randomJSON = json_encode($random);
                 // Le joueur a gagné
                 alert("Bravo, vous avez trouvé la combinaison secrète !");
 
-                leScore = (5 - rounds)*150;
+                leScore += (5 - rounds)*150;
                 score.innerHTML = leScore + " Score";
+
+                leNumCode++;
+                numCode.innerHTML = "Code " + leNumCode;
+
+                restart();
                 
-            } else if (rounds === 4) {
-                // Le joueur a épuisé ses tentatives, il a perdu
-                alert("Vous avez épuisé vos tentatives. La combinaison secrète était : " + tabResult.join(' '));
             } else {
-                // Passer à la prochaine manche
-                rounds++;
+                if (rounds === 4) {
+                    // Le joueur a épuisé ses tentatives, il a perdu
+                    alert("Vous avez épuisé vos tentatives. La combinaison secrète était : " + tabResult.join(' '));
+                } else {
+                    // Passer à la prochaine manche
+                    rounds++;
+                }
             }
         }
     }

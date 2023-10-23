@@ -1,6 +1,6 @@
 <?php
 include_once('conn.php');
-include_once('./scripts/random.php');
+include_once('./scripts/functions.php');
 
 // Données à insérer
 $date = date("Y-m-d");

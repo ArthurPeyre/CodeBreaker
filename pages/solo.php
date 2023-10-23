@@ -11,9 +11,9 @@
 
 <?php
 include_once('../composants/header.php');
-include_once('../scripts/script.php');
 include_once('../composants/tabBallsMulti.php');
 include_once('../composants/clavier.php');
+include_once('../scripts/script.php');
 ?>
 
 </body>
