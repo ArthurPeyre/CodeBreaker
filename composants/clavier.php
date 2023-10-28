@@ -1,4 +1,4 @@
-    <div class="layout-row" style="flex-wrap: wrap;justify-content: center;">
+    <div class="layout-row" style="flex-wrap: wrap;justify-content: center;gap: 25px">
         <div class="btn-short" onclick="addColor('red')" id="red">
             <?php
             include('../uploads/balls/red.svg');

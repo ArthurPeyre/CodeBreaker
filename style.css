@@ -8,8 +8,8 @@
     --main-color: #554868;
     --main-font: 'Karla', sans-serif;
     --main-font-size: 24px;
-    --color-black: #14111a;
-    --dimension: 70px;
+    --color-black: #1e1928;
+    --dimension: 65px;
 }
 
 * {
@@ -84,7 +84,7 @@ h1 {
 
 .container, .btn-long {
     display: flex;
-    padding: 15px 20px;
+    padding: 0px 20px;
 }
 
 .container {
@@ -179,8 +179,12 @@ h1 {
     }
 }
 
-@media (max-height: 724px) {
+@media (max-height: 850px) {
+    body {
+        align-items: start;
+    }    
+
     #app {
-        height: 90vh;
+        height: 80vh;
     }
 }
