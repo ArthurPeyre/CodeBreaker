@@ -6,6 +6,7 @@
     <title>CodeBreaker - Résultats</title>
 
     <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/x-icon" href="https://ayico.fr/images/logo/logo.ico">
 </head>
 <body class="layout-column">
 

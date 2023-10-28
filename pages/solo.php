@@ -6,6 +6,7 @@
     <title>CodeBreaker - Montez au sommet du podium !</title>
     
     <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/x-icon" href="https://ayico.fr/images/logo/logo.ico">
     
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>

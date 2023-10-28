@@ -9,7 +9,7 @@
     --main-font: 'Karla', sans-serif;
     --main-font-size: 24px;
     --color-black: #1e1928;
-    --dimension: 65px;
+    --dimension: 60px;
 }
 
 * {
@@ -32,7 +32,7 @@ html, body {
 body {
     padding: 25px 15px;
     height: 100vh;
-    /* overflow: hidden; */
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,7 +84,6 @@ h1 {
 
 .container, .btn-long {
     display: flex;
-    padding: 0px 20px;
 }
 
 .container {
@@ -92,6 +91,7 @@ h1 {
     justify-content: center;
     gap: 10px;
     box-shadow: 0 5px 0 0 var(--color-black);
+    padding: 15px 20px;
 }
 
 .container > * {
@@ -130,6 +130,7 @@ h1 {
     align-items: center;
     justify-content: left;
     gap: 15px;
+    padding: 0px 20px;
 }
 
 .btn-long span {
@@ -180,9 +181,9 @@ h1 {
 }
 
 @media (max-height: 850px) {
-    body {
+    /* body {
         align-items: start;
-    }    
+    }     */
 
     #app {
         height: 80vh;

@@ -34,9 +34,10 @@ if (isset($_POST['txtname']) && isset($_POST['txtpw'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeBreaker - Multiplayer Decoder</title>
+    <title>CodeBreaker - Sign-up</title>
 
     <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/x-icon" href="https://ayico.fr/images/logo/logo.ico">
 </head>
 <body>
 
