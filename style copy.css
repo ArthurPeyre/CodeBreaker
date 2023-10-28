@@ -9,7 +9,6 @@
     --main-font: 'Karla', sans-serif;
     --main-font-size: 24px;
     --color-black: #14111a;
-    --dimension: 70px;
 }
 
 * {
@@ -77,7 +76,7 @@ h1 {
 
 .container, .btn-long, .btn-short {
     background-color: #fff;
-    min-height: var(--dimension);
+    min-height: 70px;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -139,7 +138,7 @@ h1 {
 }
 
 .btn-short {
-    width: var(--dimension);
+    width: 70px;
     display: grid;
     place-items: center;
 }
@@ -169,7 +168,7 @@ h1 {
 }
 
 .orange {
-    background-color: #FF9B3F !important;
+    background-color: var(--main-color) !important;
 }
 
 

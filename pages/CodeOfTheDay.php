@@ -7,12 +7,13 @@
 
     <link rel="stylesheet" href="../style.css">
 </head>
-<body class="layout-column">
-
-<?php
+<body>
+    <div class="layout-column" id="app">
+        <?php
 include_once('../composants/header.php');
-include_once('../composants/tabBalls.php');
-include_once('../composants/clavier.php');
+if (!isset($_SESSION['ACCOUNT'])) {
+    header('location: ./login.php');
+}
 
 // Requête SELECT
 $dateDuJour = date("Y-m-d");
@@ -30,8 +31,15 @@ if ($result->rowCount() > 0) {
     }
 } else {
     header("location: ../index.php");
+    exit;
 }
+
+include_once('../composants/tabBalls.php');
+include_once('../composants/clavier.php');
+
 ?>
+
+    </div>
 
 <script>
     var tabResult = <?= $codeJSON ?>;

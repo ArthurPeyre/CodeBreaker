@@ -3,6 +3,28 @@ include('../scripts/functions.php');
 
 $random = randomCombination();
 $randomJSON = json_encode($random);
+
+// Requête SELECT avec préparation
+// Préparez la requête avec un paramètre nommé :id
+$requete = $conn->prepare("SELECT score_solo FROM users WHERE id = :id");
+// Liez la valeur du paramètre :id
+$requete->bindParam(':id', $_SESSION['ID'], PDO::PARAM_INT);
+
+// Exécutez la requête
+if ($requete->execute()) {
+    // Récupérez les résultats
+    $row = $requete->fetch();
+
+    if (empty($row)) {
+        $MAX_SCORE = 0;
+    } else {
+        $MAX_SCORE = $row['score_solo'];
+    }
+    
+} else {
+    echo "Erreur lors de l'exécution de la requête : " . implode(" - ", $requete->errorInfo());
+    $MAX_SCORE = 0;
+}
 ?>
 
 <script>
@@ -67,11 +89,14 @@ $randomJSON = json_encode($random);
         }
     }
 
+    // Vérifier si le code est juste
     function checkColor() {
+        // Vérifier que le code soit de longueur 4
         if (tabColor[rounds - 1].length === 4) {
             var verifyColor = [0,0,0,0];
             var verifyFalseColor = [0,0,0,0];
             
+            // Souligné en VERT toutes les couleurs bien placées
             for (var i = 0; i < verifyColor.length; i++) {
                 if (tabColor[rounds - 1][i] === tabResult[i]) {
                     verifyColor[i] = 1;
@@ -80,6 +105,7 @@ $randomJSON = json_encode($random);
                 }
             }
             
+            // Souligné en ORANGE toutes les bonnes couleurs malplacées
             if (verifyColor.includes(0)) {
                 for (i = 0; i<verifyColor.length; i++) {
                     if (verifyColor[i] === 0) {
@@ -94,6 +120,7 @@ $randomJSON = json_encode($random);
                 }
             }
 
+            // Désactiver les boutons si leur couleur n'est pas dans le code secret
             for (i=0; i<tabResult.length; i++) {
                 var isIn = false;
                 for (j=0; j<tabResult.length; j++) {
@@ -107,15 +134,38 @@ $randomJSON = json_encode($random);
                 }
             }
 
+            // Si le code et le code secret sont similaire alors
             if (JSON.stringify(tabResult) === JSON.stringify(tabColor[rounds - 1])) {
                 // Le joueur a gagné
                 alert("Bravo, vous avez trouvé la combinaison secrète !");
-
+                // Le score augmente
                 leScore += (5 - rounds)*150;
                 score.innerHTML = leScore + " Score";
-
+                // Code suivant
                 leNumCode++;
                 numCode.innerHTML = "Code " + leNumCode;
+
+                if (leScore > <?= $MAX_SCORE ?>) {
+                    // Créez un objet de données JSON contenant le score
+                    var data = {
+                        score: leScore
+                    };
+    
+                    // Effectuez la requête AJAX
+                    $.ajax({
+                        type: "POST", // Utilisez la méthode POST pour envoyer les données
+                        url: "../pages/solo.php", // Spécifiez l'URL du script PHP côté serveur
+                        data: data, // Envoyez les données JSON
+                        success: function(response) {
+                            // La requête AJAX a réussi, et vous pouvez gérer la réponse du serveur ici
+                            console.log("Score sauvegardé avec succès !");
+                        },
+                        error: function(xhr, status, error) {
+                            // En cas d'erreur, vous pouvez gérer l'erreur ici
+                            console.error("Erreur lors de la sauvegarde du score : " + error);
+                        }
+                    });
+                }
 
                 restart();
                 

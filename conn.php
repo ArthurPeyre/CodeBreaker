@@ -18,6 +18,10 @@ try {
     echo "La connexion à la base de données a échoué : " . $e->getMessage();
 }
 
+session_start();
+
+$error = "";
+
 // N'oubliez pas de fermer la connexion à la base de données lorsque vous avez terminé
 // $conn = null;
 ?>
