@@ -31,8 +31,8 @@ html, body {
 
 body {
     padding: 25px 15px;
-    height: 100vh;
-    overflow: hidden;
+    height: 100%;
+    /*overflow: hidden;*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -42,6 +42,10 @@ body {
     height: min(100vh, 650px);
     justify-content: space-between;
     align-items: center;
+}
+
+header {
+    padding-top: 2.5vh;
 }
 
 h1 {
@@ -174,7 +178,7 @@ h1 {
 }
 
 
-@media (max-width: 350px) {
+@media (max-width: 450px) {
     :root {
         --main-font-size: 20px;
     }

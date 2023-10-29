@@ -19,8 +19,7 @@ include_once('../composants/header.php');
 if (!isset($_SESSION['ACCOUNT'])) {
     header('location: ./login.php');
 }
-?>
-<?php
+
 // Vérifiez si le score a été envoyé en POST
 if (isset($_POST['score'])) {
     // Récupérez le score envoyé en POST
@@ -29,7 +28,7 @@ if (isset($_POST['score'])) {
     $sql = "UPDATE users SET score_solo = :score WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':score', $score, PDO::PARAM_INT);
-    $stmt->bindParam(':id', $_SESSION['ID'], PDO::PARAM_INT);
+    $stmt->bindParam(':id', $_SESSION['ACCOUNT'], PDO::PARAM_INT);
     $stmt->execute();
     
     // echo "Score sauvegardé avec succès !"; // Réponse du serveur

@@ -41,8 +41,8 @@ if (isset($_POST['txtname']) && isset($_POST['txtpw'])) {
     
         <form action="" method="post" class="layout-column" style="margin: auto 0;">
             <?= $error ?>
-            <input type="text" name="txtname" class="container">
-            <input type="password" name="txtpw" class="container">
+            <input type="text" name="txtname" class="container" placeholder="Username">
+            <input type="password" name="txtpw" class="container" placeholder="Password">
             <input type="submit" value="Se connecter" class="btn-long" style="justify-content:center;">
         </form>
 

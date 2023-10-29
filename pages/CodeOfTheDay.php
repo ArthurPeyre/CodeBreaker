@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" type="image/x-icon" href="https://ayico.fr/images/logo/logo.ico">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <div class="layout-column" id="app">
@@ -14,38 +16,84 @@
 include_once('../composants/header.php');
 if (!isset($_SESSION['ACCOUNT'])) {
     header('location: ./login.php');
-}
+}else {
+    $requete = $conn->prepare("SELECT codeoftheday FROM users WHERE id = :id");
+    
+    $requete->bindParam(':id', $_SESSION['ACCOUNT'], PDO::PARAM_INT);
+    
+    if ($requete->execute()) {
+        $row = $requete->fetch();
+        
+        if (!empty($row) && $row['codeoftheday'] != 0) {
+            // Si le code du jour est déja trouvé...
+?>
+        <div class="layout-column">
+<?php
+            if ($row['codeoftheday'] ==1 ) {
+?>
+            <p style="color: #fff; text-align:center;">C'est gagné pour aujourd'hui !</p>
+<?php
+            }else {
+?>
+            <p style="color: #fff; text-align:center;">C'est perdu pour aujourd'hui !</p>
+<?php
+            }
+?>
+        </div>
+<?php
+include_once('../composants/share_follow.php');
 
-// Requête SELECT
-$dateDuJour = date("Y-m-d");
+        }
+        else {
+            // Sinon...
+            
+            // Vérifiez si le code a été envoyé en POST
+            if (isset($_POST['code'])) {
+                $code = $_POST['code'];
+                
+                $sql = "UPDATE users SET codeoftheday = :code WHERE id = :id";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':code', $code, PDO::PARAM_INT);
+                $stmt->bindParam(':id', $_SESSION['ACCOUNT'], PDO::PARAM_INT);
+                $stmt->execute();
+                
+                // echo "Score sauvegardé avec succès !"; // Réponse du serveur
+                
+                header('location: ../index.php');
+            }
+            
+            // Requête SELECT
+            $dateDuJour = date("Y-m-d");
+            
+            $query = "SELECT code FROM codeoftheday WHERE date LIKE '" . $dateDuJour . "'";
+            $result = $conn->query($query);
+            
+            if ($result->rowCount() > 0) {
+                foreach ($result as $row) {
+                    $code = $row['code'];
 
-$query = "SELECT code FROM codeoftheday WHERE date LIKE '" . $dateDuJour . "'";
-$result = $conn->query($query);
+                    // Utilisez json_encode pour générer une chaîne JSON valide
+                    $codeJSON = json_encode($code);
+                }
+            } else {
+                header("location: ../index.php");
+                exit;
+            }
 
-if ($result->rowCount() > 0) {
-    foreach ($result as $row) {
-        // Supposons que vous ayez déjà récupéré la valeur de code depuis PHP et l'avez stockée dans $row['code']
-        $code = $row['code'];
+            include_once('../composants/tabBalls.php');
+            include_once('../composants/clavier.php');
 
-        // Utilisez json_encode pour générer une chaîne JSON valide
-        $codeJSON = json_encode($code);
+        }
     }
-} else {
-    header("location: ../index.php");
-    exit;
 }
-
-include_once('../composants/tabBalls.php');
-include_once('../composants/clavier.php');
-
 ?>
 
-    </div>
+</div>
 
 <script>
     var tabResult = <?= $codeJSON ?>;
     tabResult = tabResult.split(",");
-        
+    
     console.log(tabResult);
     
     
@@ -142,9 +190,48 @@ include_once('../composants/clavier.php');
             if (JSON.stringify(tabResult) === JSON.stringify(tabColor[rounds - 1])) {
                 // Le joueur a gagné
                 alert("Bravo, vous avez trouvé la combinaison secrète !");
+
+                var data = {
+                    code: 1
+                };
+
+                // Effectuez la requête AJAX
+                $.ajax({
+                    type: "POST", // Utilisez la méthode POST pour envoyer les données
+                    url: "../pages/CodeOfTheDay.php", // Spécifiez l'URL du script PHP côté serveur
+                    data: data, // Envoyez les données JSON
+                    success: function(response) {
+                        // La requête AJAX a réussi, et vous pouvez gérer la réponse du serveur ici
+                        console.log("Score sauvegardé avec succès !");
+                    },
+                    error: function(xhr, status, error) {
+                        // En cas d'erreur, vous pouvez gérer l'erreur ici
+                        console.error("Erreur lors de la sauvegarde du score : " + error);
+                    }
+                });
+
             } else if (rounds === 4) {
                 // Le joueur a épuisé ses tentatives, il a perdu
                 alert("Vous avez épuisé vos tentatives. La combinaison secrète était : " + tabResult.join(' '));
+
+                var data = {
+                    code: 2
+                };
+
+                // Effectuez la requête AJAX
+                $.ajax({
+                    type: "POST", // Utilisez la méthode POST pour envoyer les données
+                    url: "../pages/CodeOfTheDay.php", // Spécifiez l'URL du script PHP côté serveur
+                    data: data, // Envoyez les données JSON
+                    success: function(response) {
+                        // La requête AJAX a réussi, et vous pouvez gérer la réponse du serveur ici
+                        console.log("Score sauvegardé avec succès !");
+                    },
+                    error: function(xhr, status, error) {
+                        // En cas d'erreur, vous pouvez gérer l'erreur ici
+                        console.error("Erreur lors de la sauvegarde du score : " + error);
+                    }
+                });
             } else {
                 // Passer à la prochaine manche
                 rounds++;

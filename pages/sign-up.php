@@ -16,13 +16,20 @@ if (isset($_POST['txtname']) && isset($_POST['txtpw'])) {
         if (empty($row)) {
             $password = password_hash($_POST['txtpw'], PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO users VALUES (NULL, :username, :password, 0)";
+            $sql = "INSERT INTO users VALUES (NULL, :username, :password, 0, 0)";
             $requete = $conn->prepare($sql);
 
             $requete->bindParam(':username', $_POST['txtname'], PDO::PARAM_STR);
             $requete->bindParam(':password', $password, PDO::PARAM_STR);
 
-            $requete->execute();
+            if ($requete->execute()) {
+                $requete = $conn->prepare("SELECT id FROM users WHERE username = :username");
+                $requete->bindParam(':username', $_POST['txtname'], PDO::PARAM_STR);
+                $requete->execute();
+                $row = $requete->fetch();
+                $_SESSION['ACCOUNT'] = $row['id'];
+            }
+
         } else {
             $error = "Le nom d'utilisateur est déjà utilisé...";
         }

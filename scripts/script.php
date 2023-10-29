@@ -8,7 +8,7 @@ $randomJSON = json_encode($random);
 // Préparez la requête avec un paramètre nommé :id
 $requete = $conn->prepare("SELECT score_solo FROM users WHERE id = :id");
 // Liez la valeur du paramètre :id
-$requete->bindParam(':id', $_SESSION['ID'], PDO::PARAM_INT);
+$requete->bindParam(':id', $_SESSION['ACCOUNT'], PDO::PARAM_INT);
 
 // Exécutez la requête
 if ($requete->execute()) {
