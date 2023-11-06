@@ -38,7 +38,7 @@ body {
     justify-content: center;
 }
 
-#app {
+#app, #app1, #app2 {
     height: min(100vh, 650px);
     justify-content: space-between;
     align-items: center;
@@ -53,13 +53,30 @@ h1 {
     font-size: 2rem;
 }
 
+#delete {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 35px;
+    background-color: #f00;
+    border-radius: 100vh;
+
+}
+#delete:hover {
+    background-color: rgb(226, 0, 0);
+}
+#delete svg {
+    height: 20px;
+    fill: #fff;
+}
+
 
 .layout-column, .layout-row, .little-layout-row, .little-layout-column  {
     display: flex;
 }
 
 .layout-column, .layout-row {
-    width: min(415px, 100%);
+    width: min(375px, 100%);
     gap: 20px;
 }
 
